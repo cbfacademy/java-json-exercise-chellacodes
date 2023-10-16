@@ -1,52 +1,47 @@
 package com.cbfacademy.FileHandler;
 
-import java.io.FileReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+import java.io.BufferedReader;
 import java.util.List;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 import com.cbfacademy.Employee.Employee;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+
 
 public class JSONFileHandler {
 
-    String filename = "src/main/resources/example.json";
+    public static List<Employee> readFile(String filename) {
 
-    // Read and Write with Json from a file. (Parse) 
-    //decilratising converting an object into string representation
-    // json = plains text 
-    // read content from json file and convert it to objects that our code recognises
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
 
-    public static List<String> readFile(String filename) {
+            Gson gson = new Gson(); 
 
-        // creates Gson instrance 
+            Type employeesLisType = new TypeToken<List<Employee>>() {}.getType(); 
+            
+            List<Employee> employees = gson.fromJson(reader, employeesLisType);
 
-        Gson gson = new Gson(); 
+            employees.forEach(System.out::println);
 
-        // create a reader 
+            return employees; 
 
-        Reader reader = Files.newBufferedReader(Paths.get("example.json"));
-
-        // convert JSON file to list of users 
-        
-        List<Employee> employee = new Gson()son.fromJson(reader, Employee.class);
-        //  data = gson.toJson(reader, example.json);
-
-
-        // type token (collection type)
-
-        TypeToken<List<Employee>> collectionType = new TypeToken<List<Employee>>(){};
-
-
-        // call from json method and provide it with json string and the type we want it to convert to.
-
-        // capture a read in our variable.
-
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; }
 
     }
+
+
+
+
+
+
+
+
+    
 
     // we are creating a method to 
 
@@ -57,5 +52,6 @@ public class JSONFileHandler {
 
 
     }
-    
 }
+    
+
