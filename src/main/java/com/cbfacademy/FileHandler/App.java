@@ -7,8 +7,9 @@ import com.cbfacademy.Employee.Employee;
 public class App {
 
     public static void main (String[] args) {
+        
 
-         String filename = "example.json";
+        String filename = "src/main/resources/example.json";
 
         List<Employee> employees = JSONFileHandler.readFile(filename);
 
@@ -21,8 +22,7 @@ public class App {
         }
     }
 
+        
 
-
-
-    }
+}
 
